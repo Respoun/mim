@@ -10,19 +10,22 @@ LOG = logger.get_root_logger(
     __name__, filename=os.path.join(ROOT_PATH, 'output.log'))
 
 
-@app.route('/test', methods=['GET', 'POST', 'DELETE', 'PATCH'])
+@app.route('/quest', methods=['GET', 'POST', 'DELETE', 'PATCH'])
 def test():
     if request.method == 'GET':
         query = request.args
         try:
-            data = mongo.db.Test.find()
+            data = mongo.db.quest.find()
             response = []
             for document in data:
                 document['_id'] = str(document['_id'])
                 response.append(document)
-            return render_template("test.html", response=response), 200
-        except:
-            return jsonify({'ok': False, 'message': 'Database unreachable'}), 500
+            return render_template("quest.html", response=response), 200
+        except Exception as e:
+             return jsonify({'ok': False, 'message': str(e)}), 500
+
+        # except:
+        #     return jsonify({'ok': False, 'message': 'Database unreachable'}), 500
 
 
     # if request.method == 'POST':

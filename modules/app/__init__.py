@@ -22,6 +22,8 @@ app = Flask(__name__,template_folder="dist")
 app.config['MONGO_URI'] = os.environ.get('DB')
 mongo = PyMongo(app)
 
+app.static_folder = 'static'
+
 app.json_encoder = JSONEncoder
 
 from app.controllers import *

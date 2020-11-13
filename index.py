@@ -31,10 +31,6 @@ GET ROUTES
 def index():
     return send_from_directory('dist', 'index.html')
 
-'''
-ADD ROUTES
-'''
-
 
 @app.route('/<path:path>')
 def static_proxy(path):

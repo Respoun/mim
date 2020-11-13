@@ -1,17 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fr">
 <head>
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>MIM</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="./static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+  <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
   <!-- Custom styles for this template -->
-  <link href="./static/css/shop-homepage.css" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/shop-homepage.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -46,15 +43,14 @@
   {% block content %}{% endblock %}
  <footer class="py-5 bg-primary">
     <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Ubeer</p>
+      <p class="m-0 text-center text-white">Copyright &copy; MIM 2020</p>
     </div>
     <!-- /.container -->
   </footer>
 
   <!-- Bootstrap core JavaScript -->
-  <script src="static/vendor/jquery/jquery.min.js"></script>
-  <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+  <script href="{{ url_for('static', filename='vendor/jquery/jquery.js') }}"></script>
+  <script href="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.js') }}"></script>
 </body>
 
 </html>

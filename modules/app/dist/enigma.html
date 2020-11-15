@@ -7,6 +7,8 @@
         <div class="card-body">
             <h4 class="card-title"></h4>
                 <p style="margin-left:25%;"> {{data.data}} </p><br>
+                <!-- If response is needeed -->
+                {% if data.response == true %}
                 <form role="form"  data-toggle="validator" method="post" action="">
                     <div class="form-group col-xs-6" id="div-solution">
                         <label for="solution">Solution</label>
@@ -18,6 +20,18 @@
                         </button>
                     </div>
                 </form>
+                <!-- If response is  not needeed -->
+                {% else %}
+                    <div class="form-group col-xs-6" id="div-next">
+                        <label for="solution">Enigme suivante</label>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <button type="submit" class="btn btn-primary" id="next-enigma">
+                            <a href="{{ url_for('enigma', id_quest=data.id_quest, id_enigma=data.id_next_enigma) }}">Continuer</a>
+                        </button>
+                    </div>
+                <!-- </form> -->
+                {% endif %}
             </div>
         </div>
     </div>

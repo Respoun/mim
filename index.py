@@ -1,9 +1,8 @@
 import os
 import sys
 import requests
-from flask import jsonify, request, make_response, send_from_directory, render_template
-
-
+from datetime import timedelta, date, datetime
+from flask import jsonify, request, make_response, send_from_directory, render_template, session
 
 ROOT_PATH = os.path.dirname(os.path.realpath(__file__))
 os.environ.update({'ROOT_PATH': ROOT_PATH})
@@ -17,6 +16,15 @@ LOG = logger.get_root_logger(os.environ.get(
 
 PORT = os.environ.get('PORT')
 
+SECRET_KEY = os.environ.get('SECRET_KEY')
+app.secret_key = SECRET_KEY
+
+
+# @app.before_request
+# def make_session_permanent():
+#     session.permanent = True
+#     app.permanent_session_lifetime = timedelta(minutes=300)
+
 
 @app.errorhandler(404)
 def not_found(error):
@@ -29,7 +37,12 @@ GET ROUTES
 '''
 @app.route('/')
 def index():
-    return send_from_directory('dist', 'index.html')
+    return render_template("index.html"), 200
+
+@app.route('/clear')
+def clear():
+    session.clear()
+    return render_template("index.html"), 200
 
 
 @app.route('/<path:path>')

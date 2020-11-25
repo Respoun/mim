@@ -7,6 +7,10 @@ body {
   padding-top: 56px;
 }
 
+.custom-header {
+  background-color: #084BB3 !important;
+}
+
 .custom {
-  background-color: #373f46 !important;
+
 }

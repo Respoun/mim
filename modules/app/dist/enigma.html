@@ -4,8 +4,13 @@
 <br>
 <div class="col-lg-4 col-md-6 mb-4">
     <div class="card h-100">
+    {% if data.image == true %}
+      <!-- <img src="data:image/jpeg;base64,{{data.image}}" alt="img_data"  id="imgslot" height="75%" width="75%"/> -->
+     {% endif %}
         <div class="card-body">
             <h4 class="card-title"></h4>
+                <!-- <p>Temps de quête: {{session['chrono']}} minutes </p><br> -->
+                <p>Temps de quête: {{chrono}} minutes </p><br>
                 <p style="margin-left:25%;"> {{data.data}} </p><br>
                 <!-- If response is needeed -->
                 {% if data.response == true %}

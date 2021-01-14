@@ -10,4 +10,4 @@ services:
    - ENV=development
    - PORT=4000
    - DB=<to-change>
-   - SECRET_KEY=<TO-CHANGE>
+   - SECRET_KEY=<TO-CHANGE-WITH-REAL-KEY>

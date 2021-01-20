@@ -26,6 +26,7 @@ def enigma(id_quest, id_enigma):
         d2 = datetime.strptime(s2,'%Y:%m:%d:%I:%M:%S')
         chrono = str(int((d2-d1).total_seconds()/60))
 
+        #Get data database
         query = request.args
         try:
             data = mongo.db.enigma.find_one({"id_quest": int(id_quest), "id_enigma": int(id_enigma)})

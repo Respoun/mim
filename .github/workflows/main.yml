@@ -13,6 +13,6 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.7.8
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "mim"
+          heroku_app_name: "mim-rp"
           heroku_email: ${{secrets.HEROKU_API_MAIL}}
           usedocker: true

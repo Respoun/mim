@@ -4,41 +4,55 @@
 <br>
 <div class="col-lg-4 col-md-6 mb-4">
     <div class="card h-100">
-    {% if data.image == true %}
-      <!-- <img src="data:image/jpeg;base64,{{data.image}}" alt="img_data"  id="imgslot" height="75%" width="75%"/> -->
-     {% endif %}
         <div class="card-body">
             <h4 class="card-title"></h4>
-                <!-- <p>Temps de quête: {{session['chrono']}} minutes </p><br> -->
                 <p>Temps de quête: {{chrono}} minutes </p><br>
                 <p style="margin-left:25%;"> {{data.data}} </p><br>
                 <!-- If response is needeed -->
                 {% if data.response == true %}
-                <form role="form"  data-toggle="validator" method="post" action="">
                     <div class="form-group col-xs-6" id="div-solution">
                         <label for="solution">Solution</label>
-                        <input type="text" class="form-control" name="solution" id="solution" placeholder="Exemple: Le dodo cendré" />
+                        <input hidden type="text" class="form-control" name="solution" id="confirm_solution" value="{{data.solution}}" placeholder="Exemple: Le dodo cendré" onkeyup='check();'/>
+                        <input type="text" class="form-control" name="solution" id="solution" placeholder="Exemple: Le dodo cendré" onkeyup='check();'/><span id='message'></span>
                     </div>
                     <div class="col-lg-4 col-md-6 mb-4">
-                        <button type="submit" class="btn btn-primary" id="sending-response">
-                            <p>Envoyer</p>
-                        </button>
+                      <form class="" action="{{ url_for('enigma', id_quest=data.id_quest, id_enigma=data.id_next_enigma) }}" method="get">
+                          <button type="submit" class="btn btn-primary" id="next_enigma">Continuer</button>
+                      </form>
                     </div>
-                </form>
                 <!-- If response is  not needeed -->
                 {% else %}
                     <div class="form-group col-xs-6" id="div-next">
                         <label for="solution">Enigme suivante</label>
                     </div>
                     <div class="col-lg-4 col-md-6 mb-4">
-                        <button type="submit" class="btn btn-primary" id="next-enigma">
-                            <a href="{{ url_for('enigma', id_quest=data.id_quest, id_enigma=data.id_next_enigma) }}">Continuer</a>
-                        </button>
+                      <form class="" action="{{ url_for('enigma', id_quest=data.id_quest, id_enigma=data.id_next_enigma) }}" method="get">
+                          <button type="submit" class="btn btn-primary" id="next_enigma_free">Continuer</button>
+                      </form>
+                            <!-- <a href="{{ url_for('enigma', id_quest=data.id_quest, id_enigma=data.id_next_enigma) }}">Continuer</a> -->
                     </div>
                 <!-- </form> -->
                 {% endif %}
             </div>
         </div>
     </div>
+
+<script type="text/javascript">
+
+document.getElementById("next_enigma").disabled = true;
+
+var check = function() {
+  if (document.getElementById('solution').value ==
+    document.getElementById('confirm_solution').value) {
+    document.getElementById('message').style.color = 'green';
+    document.getElementById('message').innerHTML = 'Bonne réponse';
+    document.getElementById("next_enigma").disabled = false;
+  } else {
+    document.getElementById('message').style.color = 'red';
+    document.getElementById('message').innerHTML = 'Mauvaise réponse';
+    document.getElementById("next_enigma").disabled = true;
+  }
+}
+</script>
 {% endautoescape %}
 {% endblock content %}

@@ -5,6 +5,7 @@ from flask import jsonify, request, make_response, send_from_directory, render_t
 from app import app, mongo
 import logger
 import json
+import sys
 
 ROOT_PATH = os.environ.get('ROOT_PATH')
 LOG = logger.get_root_logger(
@@ -28,7 +29,11 @@ def enigma(id_quest, id_enigma):
 
         query = request.args
         try:
-            data = mongo.db.enigma.find_one({"id_quest": int(id_quest), "id_enigma": int(id_enigma)})
-            return render_template("enigma.html", data=data, chrono=chrono), 200
+            data = mongo.db.enigma.find_one({"id_quest":id_quest, "id_enigma":id_enigma})
+            if int(data["id_img"]) != 0:
+                img = mongo.db.Img.find_one({"id": int(data["id_img"])})
+                return render_template("enigma.html", data=data, chrono=chrono, img=img), 200
+            else:
+                return render_template("enigma.html", data=data, chrono=chrono), 200
         except Exception as e:
              return jsonify({'ok': False, 'message': str(e)}), 500

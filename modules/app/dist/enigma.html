@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {%block content %}
-{% autoescape off %}
+<!-- {% autoescape off %} -->
 <br>
 <div class="col-lg-4 col-md-6 mb-4">
     <div class="card h-100">
@@ -10,10 +10,13 @@
                 <p style="margin-left:25%;"> {{data.data}} </p><br>
 
                 {% if data.id_img != "0" %}
-                <img src="data:image/jpeg;base64,{{img.image}}" alt="img_data"  id="imgslot" height="20%" width="20%"/>
+                <div style="position:center">
+                  <img src="data:image/jpeg;charset=utf-8;base64,{{img}}" height="20%" width="50%"/> </img>
+                </div>
                 <!-- If response is needeed -->
                 {% endif %}
                 {% if data.response == true %}
+
                     <div class="form-group col-xs-6" id="div-solution">
                         <label for="solution">Solution</label>
                         <input hidden type="text" class="form-control" name="solution" id="confirm_solution" value="{{data.solution}}" placeholder="Exemple: Le dodo cendré" onkeyup='check();'/>

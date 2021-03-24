@@ -6,6 +6,7 @@ from app import app, mongo
 import logger
 import json
 import sys
+import base64
 
 ROOT_PATH = os.environ.get('ROOT_PATH')
 LOG = logger.get_root_logger(
@@ -31,8 +32,10 @@ def enigma(id_quest, id_enigma):
         try:
             data = mongo.db.enigma.find_one({"id_quest":id_quest, "id_enigma":id_enigma})
             if int(data["id_img"]) != 0:
-                img = mongo.db.Img.find_one({"id": int(data["id_img"])})
-                return render_template("enigma.html", data=data, chrono=chrono, img=img), 200
+                img = mongo.db.img.find_one({"id": int(data["id_img"])})
+                img_raw = img["image"]
+                img_decode=img_raw.decode('utf-8')
+                return render_template("enigma.html", data=data, chrono=chrono, img=img_decode), 200
             else:
                 return render_template("enigma.html", data=data, chrono=chrono), 200
         except Exception as e:

@@ -17,6 +17,9 @@ def enigma(id_quest, id_enigma):
     if request.method == 'GET':
 
         #GESTION CHRONO
+        if int(id_enigma) == 10:
+            session.pop('time_start', None)
+
         if session.get('time_start') is None:
             now = datetime.now()
             dt_string = now.strftime("%Y:%m:%d:%I:%M:%S")
@@ -27,6 +30,18 @@ def enigma(id_quest, id_enigma):
         d1 = datetime.strptime(s1,'%Y:%m:%d:%I:%M:%S')
         d2 = datetime.strptime(s2,'%Y:%m:%d:%I:%M:%S')
         chrono = str(int((d2-d1).total_seconds()/60))
+
+        if int(id_enigma) == 1000:
+            session.pop('time_start', None)
+            return jsonify({'ok': True, 'message': "destroy session timer"}), 500
+
+        # Page finale
+        if int(id_enigma) == 9999:
+            hours = int(chrono)
+            minutes = (int(chrono)*60) % 60
+            final_time = "%d:%02d" % (hours, minutes)
+            session.pop('time_start', None)
+            return render_template("final.html", final_time=final_time), 200
 
         query = request.args
         try:
